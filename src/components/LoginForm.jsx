@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-const productID = "27a174e1-40bd-4b41-98fa-3f341548e074";
+const projectID = '27a174e1-40bd-4b41-98fa-3f341548e074';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
@@ -11,21 +11,19 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const authObject = {
-            "project_ID": productID,
-            "User-Name": username,
-            "User-Secret": password
-        };
+        const authObject = { 'Project-ID': projectID, 'User-Name': username, 'User-Secret': password };
+
+        console.log(authObject);
 
         try{
-            await axios.get('https://api.chatengine.io/chats', {headers: authObject});
+            await axios.get('https://api.chatengine.io/chats', { headers: authObject });
 
             localStorage.setItem("username", username);
             localStorage.setItem("password", password);
             window.location.reload();
             setError('');
         }catch(error){
-            setError("oops, incorrect username or password");
+            setError("oops, incorrect username or password", error);
         }
 
     }
